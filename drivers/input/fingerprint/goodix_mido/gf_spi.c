@@ -726,7 +726,7 @@ static int gf_probe(struct platform_device *pdev)
 		fb_register_client(&gf_dev->notifier);
 		gf_reg_key_kernel(gf_dev);
 
-		wake_source_init(&gf_dev->ttw_wl, "goodix_ttw_wl");
+		wakeup_source_init(&gf_dev->ttw_wl, "goodix_ttw_wl");
 	}
 
 	pr_warn("--------gf_probe end---OK.--------\n");
@@ -783,7 +783,7 @@ static int gf_remove(struct platform_device *pdev)
 
 		mutex_unlock(&device_list_lock);
 
-	wake_source_trash(&gf_dev->ttw_wl);
+	wakeup_source_trash(&gf_dev->ttw_wl);
 
 	FUNC_EXIT();
 	return 0;
