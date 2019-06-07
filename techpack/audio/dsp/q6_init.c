@@ -44,7 +44,6 @@ static void __exit audio_q6_exit(void)
 	afe_exit();
 	adm_exit();
 	rtac_exit();
-	audio_cal_exit();
 	adsp_err_exit();
 }
 
