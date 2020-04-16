@@ -305,6 +305,7 @@
         };
 
 	i2c@78b7000 {
+		status = "okay";
                 focaltech@38 {
                         compatible = "focaltech,5435";
                         reg = <0x38>;
