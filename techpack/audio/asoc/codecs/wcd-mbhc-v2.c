@@ -40,7 +40,7 @@ bool is_jack_insert = false;
 void wcd_mbhc_jack_report(struct wcd_mbhc *mbhc,
 			  struct snd_soc_jack *jack, int status, int mask)
 {
-#ifdef CONFIG_MACH_XIAOMI_TISSOT
+#if (defined CONFIG_MACH_XIAOMI_MIDO) || (defined CONFIG_MACH_XIAOMI_TISSOT)
 	if (!status && (jack->jack->type&WCD_MBHC_JACK_MASK)) {
 		 is_jack_insert = false;
 	} else if (jack->jack->type&WCD_MBHC_JACK_MASK) {

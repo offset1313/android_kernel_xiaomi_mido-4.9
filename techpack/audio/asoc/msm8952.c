@@ -36,6 +36,10 @@
 #define MSM_INT_DIGITAL_CODEC "msm-dig-codec"
 #define PMIC_INT_ANALOG_CODEC "analog-codec"
 
+#ifdef CONFIG_MACH_XIAOMI_MIDO
+#define EXT_PA_MODE  5
+#endif
+
 enum btsco_rates {
 	RATE_8KHZ_ID,
 	RATE_16KHZ_ID,
