@@ -15,7 +15,6 @@
 
 #include "msm8953.dtsi"
 #include "pmi8950.dtsi"
-#include "msm8953-pmi8950.dtsi"
 
 / {
 	model = "Qualcomm Technologies, Inc. MSM8953 + PMI8950 QRD SKU3";
@@ -36,8 +35,6 @@
 };
 
 #include "msm8953-qrd-sku3.dtsi"
-#include "msm8953-mdss-panels.dtsi"
-#include "msm8953-camera-sensor-qrd.dtsi"
 
 &usb3 {
 	vbus_dwc3-supply = <&smbcharger_charger_otg>;
@@ -57,6 +54,7 @@
 		qcom,supply-enable-load = <100000>;
 		qcom,supply-disable-load = <100>;
 	};
+
 	qcom,panel-supply-entry@3 {
 		reg = <3>;
 		qcom,supply-name = "ibb";
