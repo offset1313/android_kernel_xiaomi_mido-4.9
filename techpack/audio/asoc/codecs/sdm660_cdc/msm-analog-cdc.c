@@ -2852,6 +2852,9 @@ static int msm_anlg_cdc_lo_dac_event(struct snd_soc_dapm_widget *w,
 		snd_soc_update_bits(codec,
 			MSM89XX_PMIC_ANALOG_RX_LO_DAC_CTL, 0x40, 0x40);
 		break;
+#ifdef CONFIG_MACH_XIAOMI_C6
+		msleep(5);
+#endif
 	case SND_SOC_DAPM_POST_PMU:
 		snd_soc_update_bits(codec,
 			MSM89XX_PMIC_ANALOG_RX_LO_DAC_CTL, 0x80, 0x80);
@@ -3054,6 +3057,9 @@ static const struct snd_soc_dapm_route audio_map[] = {
 	{"LINEOUT PA", NULL, "LINE_OUT"},
 	{"LINE_OUT", "Switch", "LINEOUT DAC"},
 	{"LINEOUT DAC", NULL, "PDM_IN_RX3"},
+#ifdef CONFIG_MACH_XIAOMI_C6
+	{ "Ext Spk", NULL, "LINEOUT PA"},
+#endif
 
 	/* lineout to WSA */
 	{"WSA_SPK OUT", NULL, "LINEOUT PA"},
