@@ -320,13 +320,9 @@ struct device_node *of_batterydata_get_best_profile(
 {
 	struct batt_ids batt_ids;
 	struct device_node *node, *best_node = NULL;
-<<<<<<< HEAD
-=======
 #ifdef CONFIG_MACH_XIAOMI_C6
 	struct device_node *default_node = NULL;
 #endif
-	struct power_supply *psy;
->>>>>>> 8d1d442e377bf... drivers: power: Import mido changes
 	const char *battery_type = NULL;
 	int delta = 0, best_delta = 0, best_id_kohm = 0, id_range_pct,
 		i = 0, rc = 0, limit = 0;
