@@ -25,9 +25,6 @@
 #include <linux/input.h>
 #include <linux/firmware.h>
 #include <linux/completion.h>
-#ifdef CONFIG_MACH_XIAOMI_C6
-#include <linux/switch.h>
-#endif
 #include <sound/soc.h>
 #include <sound/jack.h>
 #include "msm-cdc-pinctrl.h"
@@ -36,20 +33,9 @@
 #include "wcd-mbhc-adc.h"
 #include "wcd-mbhc-v2-api.h"
 
-#ifdef CONFIG_MACH_XIAOMI_C6
-static struct switch_dev accdet_data;
-#endif
 void wcd_mbhc_jack_report(struct wcd_mbhc *mbhc,
 			  struct snd_soc_jack *jack, int status, int mask)
 {
-#ifdef CONFIG_MACH_XIAOMI_C6
-	if (jack->jack->type & WCD_MBHC_JACK_MASK) {
-		if (!status)
-			switch_set_state(&accdet_data, 0);
-		else
-			switch_set_state(&accdet_data, status);
-	}
-#endif
 	snd_soc_jack_report(jack, status, mask);
 }
 EXPORT_SYMBOL(wcd_mbhc_jack_report);
@@ -1864,19 +1850,6 @@ int wcd_mbhc_init(struct wcd_mbhc *mbhc, struct snd_soc_codec *codec,
 
 	pr_debug("%s: enter\n", __func__);
 
-#ifdef CONFIG_MACH_XIAOMI_C6
-	accdet_data.name = "h2w";
-	accdet_data.index = 0;
-	accdet_data.state = 0;
-
-	ret = switch_dev_register(&accdet_data);
-	if (ret) {
-		dev_err(card->dev,
-			"[Accdet] switch_dev_register returned:%d!\n", ret);
-		return -EPERM;
-	}
-#endif
-
 	ret = of_property_read_u32(card->dev->of_node, hph_switch, &hph_swh);
 	if (ret) {
 		dev_err(card->dev,
@@ -2123,9 +2096,6 @@ err_mbhc_sw_irq:
 		mbhc->mbhc_cb->register_notifier(mbhc, &mbhc->nblock, false);
 	mutex_destroy(&mbhc->codec_resource_lock);
 err:
-#ifdef CONFIG_MACH_XIAOMI_C6
-	switch_dev_unregister(&accdet_data);
-#endif
 	pr_debug("%s: leave ret %d\n", __func__, ret);
 	return ret;
 }
@@ -2155,9 +2125,6 @@ void wcd_mbhc_deinit(struct wcd_mbhc *mbhc)
 	mutex_destroy(&mbhc->codec_resource_lock);
 	mutex_destroy(&mbhc->hphl_pa_lock);
 	mutex_destroy(&mbhc->hphr_pa_lock);
-#ifdef CONFIG_MACH_XIAOMI_C6
-	switch_dev_unregister(&accdet_data);
-#endif
 }
 EXPORT_SYMBOL(wcd_mbhc_deinit);
 
